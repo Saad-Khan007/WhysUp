@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    .background-box-1 {
+        background-color: #00a884;
+        height: 20vh;
+    }
+
+    .background-box-2 {
+        background-color: #111b21;
+        height: 80vh;
+    }
+
+    .background-box-3 {
+        background-color: white;
+        height: 80vh;
+        width: 70%;
+        top: 10%;
+        left: 15%;
+        position: absolute;
+        overflow: hidden;
+    }
+}

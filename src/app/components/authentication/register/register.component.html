@@ -1,1 +1,30 @@
-<p>register works!</p>
+<div class="form-container">
+    <div class="background-box-1">
+        <img src="assets/img/wallpaper_2.jpg">
+    </div>
+    <div class="background-box-2">
+        <div class="msg" *ngIf="msg">{{msg}}</div>
+        <div class="err" *ngIf="error">{{error}}</div>
+        <form [formGroup]="form">
+            <div class="form">
+                <div class="box">
+                    <label>Email</label>
+                    <input type="email" formControlName="email">
+                </div>
+                <div class="box">
+                    <label>Password</label>
+                    <input type="password" autocomplete="additional-name" formControlName="password">
+                </div>
+                <div class="box">
+                    <button (click)="submit($event)">Register Now</button>
+                </div>
+                <div class="box">
+                    <div class="links">
+                        <span routerLink="/authentication/login">Login</span>
+                        <span routerLink="/authentication/reset-password">Forget Password?</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
