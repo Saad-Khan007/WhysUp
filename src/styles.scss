@@ -6,89 +6,123 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.form-container {
-    display: flex;
+.lg-background-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
 
     .background-box-1 {
-        width: 50%;
-
-        img {
-            width: 100%;
-            height: 81vh;
-            object-fit: cover;
-            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-        }
+        background-color: #00a884;
+        height: 20vh;
     }
 
     .background-box-2 {
-        width: 50%;
+        background-color: #111b21;
         height: 80vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+    }
 
-        .err {
-            font-weight: 900;
-            color: red;
-            font-size: 12px;
-        }
+    .background-box-3 {
+        background-color: white;
+        height: 80vh;
+        width: 70%;
+        top: 10%;
+        left: 15%;
+        position: absolute;
+        overflow: hidden;
 
-        .msg {
-            font-weight: 900;
-            color: green;
-            font-size: 12px;
-        }
+        .form-container {
+            display: flex;
 
-        .form {
-            .box {
+            .background-box-4 {
+                width: 50%;
+
+                img {
+                    width: 100%;
+                    height: 81vh;
+                    object-fit: cover;
+                    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+                }
+            }
+
+            .background-box-5 {
+                width: 50%;
+                height: 80vh;
                 display: flex;
-                margin-bottom: 10px;
+                align-items: center;
+                justify-content: center;
                 flex-direction: column;
 
-                label {
-                    font-size: 1vw;
-                    font-weight: 700;
-                    color: #00a884;
-                }
-
-                input {
-                    width: 20vw;
-                    height: 3vh;
-                    padding: 5px;
-                    outline: none;
-                    font-size: 14px;
+                .err {
                     font-weight: 900;
-                    border-radius: 5px;
-                    border: 1px solid #00a884;
+                    color: red;
+                    font-size: 12px;
                 }
 
-                button {
-                    padding: 5px 0;
-                    margin-top: 5px;
-                    cursor: pointer;
+                .msg {
                     font-weight: 900;
-                    color: #00a884;
-                    border-radius: 5px;
-                    transition: all .3s;
-                    background-color: #fff;
-                    border: 1px solid #00a884;
-
-                    &:hover {
-                        background-color: #00a884;
-                        color: #fff;
-                    }
+                    color: green;
+                    font-size: 12px;
                 }
 
-                .links {
-                    display: flex;
-                    justify-content: space-between;
+                .form {
+                    .box {
+                        display: flex;
+                        margin-bottom: 10px;
+                        flex-direction: column;
 
-                    span {
-                        font-size: 12px;
-                        cursor: pointer;
-                        font-weight: 900;
-                        color: #00a884;
+                        label {
+                            font-size: 1vw;
+                            font-weight: 700;
+                            color: #00a884;
+                        }
+
+                        input {
+                            width: 20vw;
+                            height: 3vh;
+                            padding: 5px;
+                            outline: none;
+                            font-size: 14px;
+                            font-weight: 900;
+                            border-radius: 5px;
+                            border: 1px solid #00a884;
+                        }
+
+                        button {
+                            padding: 5px 0;
+                            margin-top: 5px;
+                            cursor: pointer;
+                            font-weight: 900;
+                            color: #fff;
+                            border-radius: 5px;
+                            transition: all .3s;
+                            background-color: #00a884;
+                            border: 1px solid #00a884;
+
+                            &:hover {
+                                background-color: #00c097;
+                            }
+
+                            &:disabled{
+                                border: 1px solid #ff6666;
+                                background-color: #ff6666;
+                            }
+                        }
+
+                        .err{
+                            font-size: 10px;
+                        }
+
+                        .links {
+                            display: flex;
+                            justify-content: space-between;
+
+                            span {
+                                font-size: 12px;
+                                cursor: pointer;
+                                font-weight: 900;
+                                color: #00a884;
+                            }
+                        }
                     }
                 }
             }

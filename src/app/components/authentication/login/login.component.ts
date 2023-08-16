@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth"
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   msg: undefined | string;
   constructor(formBuilder: FormBuilder, private router: Router) {
     this.form = formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$')]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,,Validators.pattern(/.{8,}/)]]
     })
   }
 
@@ -37,9 +37,30 @@ export class LoginComponent implements OnInit {
           }, 3000)
         })
         .catch((error) => {
-          console.log(error.message);
+          this.error = error.message;
+          setTimeout(() => {
+            this.error = undefined;
+          }, 3000)
         });
     }
   }
 
+  forgetPassword() {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, this.form.value.email)
+      .then(() => {
+        this.msg = 'Password reset email sent!';
+        setTimeout(() => {
+          this.msg = undefined;
+          this.form.reset();
+          this.router.navigate(['/authentication/login'])
+        }, 3000)
+      })
+      .catch((error) => {
+        this.error = error.message;
+        setTimeout(() => {
+          this.error = undefined;
+        }, 3000)
+      });
+  }
 }

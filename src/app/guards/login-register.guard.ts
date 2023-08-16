@@ -6,23 +6,23 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationGuard implements CanActivate {
+export class LoginRegisterGuard implements CanActivate {
   constructor(private router: Router) { }
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const auth = getAuth();
-
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve) => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          resolve(true);
-        } else {
-          this.router.navigate(['authentication/login']); // Only navigate when user is not authenticated
+          this.router.navigate(['user/profile']); 
           resolve(false);
+          console.log('auth state changed1');
+        } else {
+          resolve(true);
         }
       });
     });
   }
+
 }

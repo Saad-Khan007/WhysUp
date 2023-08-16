@@ -1,30 +1,51 @@
-<div class="form-container">
-    <div class="background-box-1">
-        <img src="assets/img/wallpaper_2.jpg">
-    </div>
-    <div class="background-box-2">
-        <div class="msg" *ngIf="msg">{{msg}}</div>
-        <div class="err" *ngIf="error">{{error}}</div>
-        <form [formGroup]="form">
-            <div class="form">
-                <div class="box">
-                    <label>Email</label>
-                    <input type="email" formControlName="email">
-                </div>
-                <div class="box">
-                    <label>Password</label>
-                    <input type="password" autocomplete="additional-name" formControlName="password">
-                </div>
-                <div class="box">
-                    <button (click)="submit($event)">Register Now</button>
-                </div>
-                <div class="box">
-                    <div class="links">
-                        <span routerLink="/authentication/login">Login</span>
-                        <span routerLink="/authentication/reset-password">Forget Password?</span>
-                    </div>
-                </div>
+<div class="lg-background-container">
+    <div class="background-box-1"></div>
+    <div class="background-box-2"></div>
+    <div class="background-box-3">
+        <div class="form-container">
+            <div class="background-box-4">
+                <img src="assets/img/wallpaper_2.jpg">
             </div>
-        </form>
+            <div class="background-box-5">
+                <div class="msg" *ngIf="msg">{{msg}}</div>
+                <div class="err" *ngIf="error">{{error}}</div>
+                <form [formGroup]="form">
+                    <div class="form">
+                        <div class="box">
+                            <label>Email</label>
+                            <input type="email" formControlName="email"
+                                [ngStyle]="{'border-color':form.get('email')?.touched && form.get('email')?.errors?.['required'] || (form.get('email')?.touched && form.get('email')?.errors?.['email']) ? '#ff6666' : '#00a884' }">
+                            <div *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']"
+                                class="err">
+                                Please enter an email.</div>
+                            <div *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']" class="err">
+                                Invalid email.</div>
+                        </div>
+                        <div class="box">
+                            <label>Password</label>
+                            <input
+                                [ngStyle]="{'border-color':form.get('password')?.touched && form.get('password')?.errors?.['required'] || form.get('password')?.errors?.['pattern'] ? '#ff6666' : '#00a884' }"
+                                type="password" autocomplete="additional-name" formControlName="password">
+                            <div *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"
+                                class="err">
+                                Password
+                                is required.</div>
+                            <div *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['pattern']"
+                                class="err">
+                                Password must be at least 8 characters long.</div>
+                        </div>
+                        <div class="box">
+                            <button (click)="submit($event)" [disabled]="form.invalid">Register Now</button>
+                        </div>
+                        <div class="box">
+                            <div class="links">
+                                <span routerLink="/authentication/login">Login</span>
+                                <span (click)="forgetPassword()">Forget Password?</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
