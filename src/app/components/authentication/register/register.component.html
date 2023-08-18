@@ -12,6 +12,14 @@
                 <form [formGroup]="form">
                     <div class="form">
                         <div class="box">
+                            <label>Name</label>
+                            <input type="text" formControlName="name"
+                                [ngStyle]="{'border-color':form.get('name')?.touched && form.get('name')?.errors?.['required']}">
+                            <div *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['required']"
+                                class="err">
+                                Please enter your name.</div>
+                        </div>
+                        <div class="box">
                             <label>Email</label>
                             <input type="email" formControlName="email"
                                 [ngStyle]="{'border-color':form.get('email')?.touched && form.get('email')?.errors?.['required'] || (form.get('email')?.touched && form.get('email')?.errors?.['email']) ? '#ff6666' : '#00a884' }">

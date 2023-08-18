@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth"
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,10 +12,11 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   error: undefined | string;
   msg: undefined | string;
-  constructor(formBuilder: FormBuilder, private router: Router, private fireAuth: AngularFireAuth) {
+  constructor(formBuilder: FormBuilder, private router: Router, private fireAuth: AngularFireAuth, private fireStore: AngularFirestore) {
     this.form = formBuilder.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,Validators.pattern(/.{8,}/)]]
+      password: ['', [Validators.required, Validators.pattern(/.{8,}/)]]
     })
   }
   ngOnInit(): void {
@@ -24,14 +24,24 @@ export class RegisterComponent implements OnInit {
   submit(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
-      const auth = getAuth();
       this.fireAuth.createUserWithEmailAndPassword(this.form.value.email, this.form.value.password)
-      // createUserWithEmailAndPassword(auth, this.form.value.email, this.form.value.password)
         .then((userCredential) => {
-          const user = userCredential.user;
+          const user = {
+            name: this.form.value.name,
+            email: this.form.value.email,
+            password: this.form.value.password,
+            about: 'Hello, I am using WhysUp App'
+          };
           this.msg = 'User created successfully.';
+          this.fireStore.collection('users').doc(userCredential?.user?.uid).set(user)
+            .then(() => {
+            })
+            .catch(error => {
+              this.error = error.message;
+            });
           setTimeout(() => {
             this.msg = undefined;
+            this.error = undefined;
             this.form.reset();
             this.router.navigate(['/authentication/login'])
           }, 3000)
@@ -46,8 +56,7 @@ export class RegisterComponent implements OnInit {
   }
 
   forgetPassword() {
-    const auth = getAuth();
-    sendPasswordResetEmail(auth, this.form.value.email)
+    this.fireAuth.sendPasswordResetEmail(this.form.value.email)
       .then(() => {
         this.msg = 'Password reset email sent!';
         setTimeout(() => {

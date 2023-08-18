@@ -10,13 +10,29 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class AppComponent implements OnInit {
   title = 'WhysUp';
 
-  constructor(private firestore: AngularFirestore, private fireauth: AngularFireAuth ) {
-    // .subscribe((users) =>{
-    //   console.log(users.docs)
-    // })
+  constructor(private firestore: AngularFirestore, private fireauth: AngularFireAuth) {
   }
   ngOnInit() {
-    // this.getAllUsers()
+    // this.firestore.collection('users').snapshotChanges().subscribe(data => {
+    //   data.forEach(user => {
+    //     console.log(user.payload.doc.data());
+        
+    //   })
+    // })
+    // this.firestore.collection('users').doc('user#1').set({name: 'Assad1'})
+    // const userData = {
+    //   name: 'Alice Smith',
+    //   email: 'alice@example.com',
+    //   age: 28,
+    // };
+
+    // this.firestore.collection('users').doc('UserEmail').set(userData)
+    // .then(() => {
+    //   console.log('Document added with custom ID:', 'UserEmail');
+    // })
+    // .catch(error => {
+    //   console.error('Error adding document:', error);
+    // });
   }
 
   // getAllUsers() {
@@ -26,19 +42,6 @@ export class AppComponent implements OnInit {
 
   //   })
   // })
-  // this.firestore.collection('users').snapshotChanges().subscribe(data => {
-  // console.log(data);
-  // data.forEach(user => {
-  // console.log(user.payload.doc.data());
-
-  //   })
 
   // })
-  // this.firestore.collection('users').doc('user#1').set({name: 'Ali'})
-  // this.fireauth.createUserWithEmailAndPassword('saad1@example.com','saad@123').then((user) => {
-  //   console.log(user.user?.sendEmailVerification());
-  // }).catch((err) => {
-  //   console.log(err.message);
-  // })
-  // }
 }

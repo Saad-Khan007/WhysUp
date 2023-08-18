@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth"
 
 @Component({
   selector: 'app-login',
@@ -12,10 +12,10 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   error: undefined | string;
   msg: undefined | string;
-  constructor(formBuilder: FormBuilder, private router: Router) {
+  constructor(formBuilder: FormBuilder, private router: Router, private fireAuth: AngularFireAuth) {
     this.form = formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,,Validators.pattern(/.{8,}/)]]
+      password: ['', [Validators.required, , Validators.pattern(/.{8,}/)]]
     })
   }
 
@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
   submit(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.form.value.email, this.form.value.password)
+      this.fireAuth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password)
         .then((userCredential) => {
           const user = userCredential.user;
           this.msg = 'Logged in successfully.';
@@ -46,8 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   forgetPassword() {
-    const auth = getAuth();
-    sendPasswordResetEmail(auth, this.form.value.email)
+    this.fireAuth.sendPasswordResetEmail(this.form.value.email)
       .then(() => {
         this.msg = 'Password reset email sent!';
         setTimeout(() => {
