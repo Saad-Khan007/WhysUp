@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MainPageComponent } from './main-page/main-page.component';
 import { AuthenticationGuard } from 'src/app/guards/authentication.guard';
 
 const routes: Routes = [
   {
-    path: 'profile',
-    component: UserProfileComponent,
+    path: 'main',
+    component: MainPageComponent,
     canActivate: [AuthenticationGuard]
   }
 ];
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserRoutingModule { }
+export class UserInterfaceRoutingModule { }

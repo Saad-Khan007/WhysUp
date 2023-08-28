@@ -15,9 +15,8 @@ export class LoginRegisterGuard implements CanActivate {
     return new Promise<boolean>((resolve) => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          this.router.navigate(['user/profile']); 
+          this.router.navigate(['ui/main']); 
           resolve(false);
-          console.log('auth state changed1');
         } else {
           resolve(true);
         }

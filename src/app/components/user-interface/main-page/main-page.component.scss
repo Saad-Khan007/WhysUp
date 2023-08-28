@@ -1,0 +1,26 @@
+.ui-background-container {
+    width: 100%;
+    background-color: #111b21;
+    height: 100vh;
+    position: relative;
+
+    .main-container {
+        position: absolute;
+        top: 5%;
+        right: 10%;
+        height: 90vh;
+        width: 80%;
+        display: flex;
+
+        app-sidebar {
+            width: 25%;
+            height: 90vh;
+        }
+
+        app-chat-interface {
+            width: 75%;
+            height: 90vh;
+        }
+
+    }
+}

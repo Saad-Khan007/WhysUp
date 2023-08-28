@@ -8,6 +8,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDuOH0ABjvQuQ9uUVPEy1scFDeylSqAB6I",
@@ -25,6 +26,7 @@ const firebaseConfig = {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatButtonModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,

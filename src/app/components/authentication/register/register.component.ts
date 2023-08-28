@@ -29,7 +29,6 @@ export class RegisterComponent implements OnInit {
           const user = {
             name: this.form.value.name,
             email: this.form.value.email,
-            password: this.form.value.password,
             about: 'Hello, I am using WhysUp App'
           };
           this.msg = 'User created successfully.';

@@ -7,17 +7,17 @@ const routes: Routes = [
     loadChildren: () => import('./components/authentication/authentication.module').then(route => route.AuthenticationModule)
   },
   {
-    path: 'user',
-    loadChildren: () => import('./components/user/user.module').then(route => route.UserModule)
+    path: 'ui',
+    loadChildren: () => import('./components/user-interface/user-interface.module').then(route => route.UserInterfaceModule)
   },
   {
     path: '',
-    redirectTo: 'user/profile',
+    redirectTo: 'ui/main',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'user/profile'
+    redirectTo: 'ui/main'
   },
 ];
 
