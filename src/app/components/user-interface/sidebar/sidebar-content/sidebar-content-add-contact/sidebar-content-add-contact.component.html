@@ -1,0 +1,26 @@
+<div class="side-bottom">
+    <div class="add-new-contact-input-container">
+        <div class="msg">{{addNewContactMsg}}</div>
+        <form [formGroup]="addNewContactForm">
+            <div class="input-box">
+                <div class="label">Name</div>
+                <input type="text" formControlName="name">
+                <div *ngIf="addNewContactForm.get('name')?.touched && addNewContactForm.get('name')?.errors?.['required']"
+                    class="err">
+                    Please enter your name.</div>
+            </div>
+            <div class="input-box">
+                <div class="label">Email</div>
+                <input type="text" type="email" formControlName="email">
+                <div *ngIf="addNewContactForm.get('email')?.touched && addNewContactForm.get('email')?.errors?.['required']"
+                    class="err">
+                    Please enter an email.</div>
+                <div *ngIf="addNewContactForm.get('email')?.touched && addNewContactForm.get('email')?.errors?.['email']"
+                    class="err">
+                    Invalid email.</div>
+            </div>
+            <button (click)="addNewContact()" [disabled]="addNewContactForm.invalid">Add
+                Contact</button>
+        </form>
+    </div>
+</div>

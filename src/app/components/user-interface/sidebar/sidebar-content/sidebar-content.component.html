@@ -1,0 +1,3 @@
+<app-sidebar-content-profile *ngIf="sidebarContent === 'profile'" (imgSrc)="imgSrc($event)"></app-sidebar-content-profile>
+<app-sidebar-content-add-contact *ngIf="sidebarContent === 'addContact'"></app-sidebar-content-add-contact>
+<app-sidebar-content-conversation *ngIf="sidebarContent === 'conversation'"></app-sidebar-content-conversation>

@@ -1,0 +1,97 @@
+.side-bottom {
+    .searchBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+
+        svg {
+            color: #fff;
+            cursor: pointer;
+            transition: all .3s;
+
+            &:hover {
+                color: #00a884;
+            }
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #202c33;
+            padding: 1px 10px;
+            border-radius: 8px;
+            gap: 10px;
+            width: 80%;
+
+            svg {
+                color: #8696a0;
+            }
+
+            input {
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: #fff;
+                font-size: 10px;
+                width: -webkit-fill-available;
+            }
+        }
+    }
+
+    .conversation-con {
+        padding: 10px 0;
+
+        .conversation {
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px 5px;
+            transition: all .3s;
+
+            .img-con {
+                svg {
+                    height: 30px;
+                    width: 35px;
+                    border-radius: 50%;
+                }
+            }
+
+            .text-con {
+                width: -webkit-fill-available;
+                padding-right: 5px;
+                border-bottom: 1px solid rgb(134 151 161 / 15%);
+
+                .title-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+
+                    .title {
+                        color: #e9edef;
+                        font-size: 12px;
+                        font-weight: 700;
+                        letter-spacing: 1px;
+                    }
+
+                    .time {
+                        color: #8696a0;
+                        font-size: 10px;
+                    }
+                }
+
+                .last-message {
+                    color: #8696a0;
+                    font-size: 10px;
+
+                }
+            }
+
+            &:hover {
+                background-color: rgb(32, 44, 51);
+            }
+        }
+    }
+}

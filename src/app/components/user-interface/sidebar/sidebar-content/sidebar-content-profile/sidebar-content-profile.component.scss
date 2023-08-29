@@ -1,0 +1,94 @@
+.side-bottom {
+    .img-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: flex;
+        position: relative;
+        margin: 20px auto;
+        overflow: hidden;
+
+        &:hover {
+            .img-layer {
+                opacity: 1
+            }
+        }
+
+        img {
+            width: 100%;
+            border-radius: 50%;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        .img-layer {
+            width: 100%;
+            cursor: pointer;
+            height: 100%;
+            background: rgb(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: all 0.3s;
+            color: white;
+            font-size: 12px;
+
+            svg {
+                height: 20px;
+                fill: white;
+            }
+        }
+    }
+
+    .text-container {
+        .text-box {
+            padding: 10px;
+            position: relative;
+
+            .label {
+                color: #00a884;
+                font-size: 10px;
+                font-weight: 900;
+            }
+
+            input {
+                width: 100%;
+                background-color: transparent;
+                border: none;
+                color: #fff;
+                font-size: 12px;
+                outline: none;
+                padding-bottom: 5px;
+            }
+
+            input.read-only {
+                border-bottom: 3px solid #00a884;
+            }
+
+            .edit-save-profile {
+                position: absolute;
+                top: 40%;
+                right: 10px;
+
+                .edit svg,
+                .tick svg {
+                    height: 18px !important;
+                    color: #fff;
+                    cursor: pointer;
+                    transition: all .3s;
+
+                    &:hover {
+                        color: #00a884;
+                    }
+                }
+            }
+        }
+    }
+}
