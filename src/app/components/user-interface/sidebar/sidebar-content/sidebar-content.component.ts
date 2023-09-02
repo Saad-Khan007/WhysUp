@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'app-sidebar-content',
@@ -6,22 +7,14 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
   styleUrls: ['./sidebar-content.component.scss']
 })
 export class SidebarContentComponent implements OnInit {
-  @Input() sContent: string = ''
-  @Output() imgContent = new EventEmitter<string>();
+  sidebarContent = 'status'
 
-  sidebarContent = 'conversation'
+  constructor(private firebaseService: FirebaseService) { }
 
-  constructor() { }
-
-  ngOnInit(): void { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.sidebarContent = this.sContent
-    }
+  ngOnInit(): void {
+    this.firebaseService.sideBarContent.subscribe(sidebarContent => {
+      this.sidebarContent = sidebarContent
+    })
   }
 
-  imgSrc(event: string) {
-    this.imgContent.emit(event)
-  }
 }

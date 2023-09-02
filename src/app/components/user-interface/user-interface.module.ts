@@ -11,6 +11,7 @@ import { SidebarContentComponent } from './sidebar/sidebar-content/sidebar-conte
 import { SidebarContentProfileComponent } from './sidebar/sidebar-content/sidebar-content-profile/sidebar-content-profile.component';
 import { SidebarContentAddContactComponent } from './sidebar/sidebar-content/sidebar-content-add-contact/sidebar-content-add-contact.component';
 import { SidebarContentConversationComponent } from './sidebar/sidebar-content/sidebar-content-conversation/sidebar-content-conversation.component';
+import { SidebarContentStatusComponent } from './sidebar/sidebar-content/sidebar-content-status/sidebar-content-status.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SidebarContentConversationComponent } from './sidebar/sidebar-content/s
     SidebarContentComponent,
     SidebarContentProfileComponent,
     SidebarContentAddContactComponent,
-    SidebarContentConversationComponent
+    SidebarContentConversationComponent,
+    SidebarContentStatusComponent
   ],
   imports: [
     CommonModule,

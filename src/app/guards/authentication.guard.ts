@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationGuard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private fireAuth: AngularFireAuth) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const auth = getAuth();
-
-    return new Promise<boolean>((resolve, reject) => {
-      onAuthStateChanged(auth, (user) => {
+    return new Promise<boolean>((resolve) => {
+      this.fireAuth.onAuthStateChanged((user) => {
         if (user) {
           resolve(true);
         } else {

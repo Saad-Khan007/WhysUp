@@ -5,18 +5,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  sContent: string = '';
-  imgUrl: string = ''
-
   constructor() { }
 
   ngOnInit(): void { }
-
-  sContentFunc(event: string): void{
-    this.sContent = event;
-  }
-
-  imgContent(event: string): void{
-    this.imgUrl = event;
-  }
 }

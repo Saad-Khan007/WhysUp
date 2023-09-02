@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'app-sidebar-content-add-contact',
@@ -11,48 +11,50 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SidebarContentAddContactComponent implements OnInit {
   addNewContactForm: FormGroup;
   addNewContactMsg: string = '';
-  user: any;
   user_id: string | undefined;
   constructor(
     private formBuilder: FormBuilder,
     private fireStore: AngularFirestore,
-    private fireAuth: AngularFireAuth
+    private firebaseService: FirebaseService
   ) {
     this.addNewContactForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     })
   }
 
   ngOnInit(): void {
-    this.fireAuth.onAuthStateChanged((user) => {
-      this.fireStore.doc('users/' + user?.uid).get().toPromise()
-        .then((docSnapshot: any) => {
-          if (docSnapshot.exists) {
-            this.user = docSnapshot.data();
-            this.user_id = user?.uid
-          } else {
-            console.log('User document not found');
-          }
-        })
-        .catch((error: any) => {
-          console.error('Error getting document:', error);
-        });
+    this.firebaseService.getUserId().then(user => {
+      this.user_id = user.id;
     })
   }
 
   addNewContact() {
     if (this.addNewContactForm.valid) {
-      const obj = {
-        email: this.addNewContactForm.value.email,
-        name: this.addNewContactForm.value.name
-      }
-      this.fireStore.collection('users').doc(this.user_id).collection('Contacts').doc(obj.email).set(obj)
-      this.addNewContactForm.reset();
-      this.addNewContactMsg = 'New Contact Added'
-      setTimeout(() => {
-        this.addNewContactMsg = ''
-      }, 3000)
+      this.firebaseService.verifyEmail(this.addNewContactForm.value.email)
+        .then((res) => {
+          if (res === true) {
+            const obj = {
+              email: this.addNewContactForm.value.email,
+            }
+            this.fireStore.collection('users').doc(this.user_id).collection('Contacts').doc(obj.email).set(obj)
+            this.addNewContactForm.reset();
+            this.addNewContactMsg = 'New Contact Added'
+            setTimeout(() => {
+              this.addNewContactMsg = ''
+            }, 3000)
+          }
+          else {
+            this.addNewContactMsg = 'Email Does Not Exist';
+            this.addNewContactForm.reset();
+            setTimeout(() => {
+              this.addNewContactMsg = ''
+            }, 3000)
+          }
+        })
     }
+  }
+
+  ngOnDestroy() {
+    this.addNewContactForm.reset();
   }
 }

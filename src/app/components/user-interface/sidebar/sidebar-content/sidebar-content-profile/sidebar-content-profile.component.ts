@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'app-sidebar-content-profile',
@@ -9,8 +8,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   styleUrls: ['./sidebar-content-profile.component.scss']
 })
 export class SidebarContentProfileComponent implements OnInit {
-  @Output() imgSrc = new EventEmitter<string>();
-
   src: string = 'assets/img/defaultProfile.jpg';
   user: any;
   user_id: string | undefined;
@@ -18,26 +15,17 @@ export class SidebarContentProfileComponent implements OnInit {
   editNameProfile = true;
 
   constructor(
-    private fireAuth: AngularFireAuth,
     private fireStore: AngularFirestore,
-    private fireStorage: AngularFireStorage,
+    private firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
-    this.fireAuth.onAuthStateChanged((user) => {
-      this.fireStore.doc('users/' + user?.uid).get().toPromise()
-        .then((docSnapshot: any) => {
-          if (docSnapshot.exists) {
-            this.user = docSnapshot.data();
-            this.user_id = user?.uid
-            this.getImages();
-          } else {
-            console.log('User document not found');
-          }
-        })
-        .catch((error: any) => {
-          console.error('Error getting document:', error);
-        });
+    this.firebaseService.getUserId().then(res => {
+      this.user = res;
+      this.user_id = this.user.id;
+      this.getImages();
+    }).catch(err => {
+      console.log(err);
     })
   }
 
@@ -46,29 +34,18 @@ export class SidebarContentProfileComponent implements OnInit {
     img.click();
   }
 
-  deleteAllImages() {
-    const imagesRef = this.fireStorage.ref(this.user_id + '/ProfileImg');
-    imagesRef?.listAll().forEach((res) => {
-      res?.items[0]?.delete()
-    });
-  }
-
   getImages() {
-    const imagesRef = this.fireStorage.ref(this.user_id + '/ProfileImg');
-    imagesRef?.listAll().forEach((res) => {
-      res?.items[0]?.getDownloadURL().then((r) => {
-        this.src = `${r}`;
-        this.imgSrc.emit(this.src);
-      })
-    });
+    this.user_id && this.firebaseService.getImg(this.user_id).then(img => {
+      this.src = img;
+      this.firebaseService.imgSrc.next(this.src);
+    })
   }
 
   uploadFile(event: any) {
-    this.deleteAllImages()
     const file = event.target.files[0];
-    const filePath = `${this.user_id}/ProfileImg/` + file.name;
-    this.fireStorage.upload(filePath, file).then(res => {
-      this.getImages()
+    const filePath = `${this.user_id}/assets/img/profileImg`;
+    this.firebaseService.uploadImg(filePath, file).then(res => {
+      this.getImages();
     });
   }
 

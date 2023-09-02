@@ -1,5 +1,6 @@
 <div class="side-bottom">
-    <input type="file" id="profile-img" (change)="uploadFile($event)" class="profile-img" hidden>
+    <input type="file" accept="image/jpeg,image/png" id="profile-img" (change)="uploadFile($event)" class="profile-img"
+        hidden>
     <div class="img-container">
         <img [src]="src">
         <div class="img-layer" (click)="imgUpload()">
